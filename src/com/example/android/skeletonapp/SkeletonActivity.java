@@ -17,6 +17,10 @@
 package com.example.android.skeletonapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,7 +30,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import android.util.Log;;
+import android.util.Log;
 
 /**
  * This class provides a basic demonstration of how to write an Android
@@ -59,6 +63,7 @@ public class SkeletonActivity extends Activity {
         ((Button) findViewById(R.id.back)).setOnClickListener(mBackListener);
         ((Button) findViewById(R.id.clear)).setOnClickListener(mClearListener);
         ((Button) findViewById(R.id.next)).setOnClickListener(mNextListener);
+        ((Button) findViewById(R.id.show)).setOnClickListener(mShowListener);
         
     }
 
@@ -145,12 +150,23 @@ public class SkeletonActivity extends Activity {
     };
     
     OnClickListener mNextListener = new OnClickListener() {
-        
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(SkeletonActivity.this, SkeletonSubActivity.class);
             intent.putExtra("INTENT_PARAM", "TEST");
             startActivity(intent);
+        }
+    };
+    
+    OnClickListener mShowListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
+            dialog.setTitle("Demo");
+            dialog.setMessage("Demo Message!");
+            dialog.setPositiveButton("戻る", null);
+            dialog.show();
+            
         }
     };
 }
