@@ -161,11 +161,14 @@ public class SkeletonActivity extends Activity {
     OnClickListener mShowListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(SkeletonActivity.this);
-            dialog.setTitle("Demo");
-            dialog.setMessage("Demo Message!");
-            dialog.setPositiveButton("戻る", null);
-            dialog.show();
+            AlertDialog.Builder dialog = new AlertDialog.Builder(SkeletonActivity.this)
+                .setTitle("Demo")
+                .setMessage("Demo Message!")
+                .setPositiveButton("Positive", null)
+                .setNegativeButton("Negative", null)
+                .setNeutralButton("Neutral", null)
+                .setNeutralButton("Neutral!!!!!", null);
+                dialog.show();
             
         }
     };
