@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.SearchManager.OnCancelListener;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -156,8 +155,9 @@ public class SkeletonActivity extends Activity {
     OnClickListener mNextListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(SkeletonActivity.this, SkeletonSubActivity.class);
-            intent.putExtra("INTENT_PARAM", "TEST");
+            String text = mEditor.getText().toString();
+            Intent intent = new Intent(SkeletonActivity.this, SkeletonSubActivity.class)
+                .putExtra("INTENT_PARAM", text);
             startActivity(intent);
         }
     };

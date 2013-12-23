@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class SkeletonSubActivity extends Activity {
     
@@ -13,20 +14,16 @@ public class SkeletonSubActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        String str;
         
         super.onCreate(savedInstanceState);
-        
         setContentView(R.layout.skelton_sub_activity);
         
         if ((savedInstanceState == null) || (savedInstanceState.isEmpty())) {
-            str = getIntent().getExtras().getString("INTENT_PARAM");
-        } else {
-            str = "";
-        }
-        
+            String str = getIntent().getExtras().getString("INTENT_PARAM");
+            Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT)
+                .show();
+        } 
         textView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
-        textView.setText(str);
         
         ((Button) findViewById(R.id.subButton)).setOnClickListener(sbListener);
         ((Button) findViewById(R.id.enableButton)).setOnClickListener(enListener);

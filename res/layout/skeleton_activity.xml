@@ -34,7 +34,7 @@
         android:id="@+id/editor"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1"
+        android:layout_weight="0.32"
         android:autoText="true"
         android:capitalize="sentences"
         android:freezesText="true"
