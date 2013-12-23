@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.app.SearchManager.OnCancelListener;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +30,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import android.text.Editable;
 import android.util.Log;
 
 /**
@@ -64,6 +67,7 @@ public class SkeletonActivity extends Activity {
         ((Button) findViewById(R.id.clear)).setOnClickListener(mClearListener);
         ((Button) findViewById(R.id.next)).setOnClickListener(mNextListener);
         ((Button) findViewById(R.id.show)).setOnClickListener(mShowListener);
+        ((Button) findViewById(R.id.toast)).setOnClickListener(mToastListener);
         
     }
 
@@ -161,15 +165,25 @@ public class SkeletonActivity extends Activity {
     OnClickListener mShowListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(SkeletonActivity.this)
+            new AlertDialog.Builder(SkeletonActivity.this)
                 .setTitle("Demo")
                 .setMessage("Demo Message!")
                 .setPositiveButton("Positive", null)
                 .setNegativeButton("Negative", null)
                 .setNeutralButton("Neutral", null)
-                .setNeutralButton("Neutral!!!!!", null);
-                dialog.show();
+                .setNeutralButton("Neutral!!!!!", null)
+                .show();
             
         }
     };
+    
+    OnClickListener mToastListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			Editable text = mEditor.getText();
+			Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG)
+				.show();
+		}
+	};
 }
