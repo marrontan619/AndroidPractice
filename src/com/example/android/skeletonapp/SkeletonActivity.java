@@ -16,11 +16,13 @@
 
 package com.example.android.skeletonapp;
 
+import junit.framework.TestFailure;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,6 +31,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import android.text.Editable;
@@ -41,6 +44,7 @@ import android.util.Log;
  */
 public class SkeletonActivity extends Activity {
     
+    static final private String br = System.getProperty("line.separator");
     static final private int BACK_ID = Menu.FIRST;
     static final private int CLEAR_ID = Menu.FIRST + 1;
 
@@ -165,13 +169,34 @@ public class SkeletonActivity extends Activity {
     OnClickListener mShowListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            final EditText textFiled = new EditText(getApplicationContext());
+            android.content.DialogInterface.OnClickListener pButtonListener = new android.content.DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    
+                    if (textFiled.getText().toString().equals(R.string.rightAnswer)) {
+                        Toast.makeText(getApplicationContext(), "正解", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "不正解", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }; 
+            String[] miporin = {"み", "ぽ", "り", "ん"};
+            int length = miporin.length;
+            int max = length - 1;
+            String message = "";
+            for (int i = 0; i < length -1; i++) {
+                int index = (int) Math.random() * max;
+                message += miporin[index] + br;
+                miporin[index] = miporin[max--];
+            }
+            message += miporin[0];
             new AlertDialog.Builder(SkeletonActivity.this)
-                .setTitle("Demo")
-                .setMessage("Demo Message!")
-                .setPositiveButton("Positive", null)
-                .setNegativeButton("Negative", null)
-                .setNeutralButton("Neutral", null)
-                .setNeutralButton("Neutral!!!!!", null)
+                .setTitle("並び替え")
+                .setMessage(message)
+                .setView(textFiled)
+                .setPositiveButton("回答", pButtonListener)
+                .setNegativeButton("戻る", null)
                 .show();
             
         }
