@@ -26,9 +26,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -48,6 +51,7 @@ public class SkeletonActivity extends Activity {
     static final private String br = System.getProperty("line.separator");
     static final private int BACK_ID = Menu.FIRST;
     static final private int CLEAR_ID = Menu.FIRST + 1;
+    static final private int SETTINGS_ID = Menu.FIRST + 2;
 
     private EditText mEditor;
     
@@ -61,6 +65,7 @@ public class SkeletonActivity extends Activity {
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.skeleton_activity);
+        
 
         // Find the text editor view inside the layout, because we
         // want to do various programmatic things with it.
@@ -102,8 +107,18 @@ public class SkeletonActivity extends Activity {
         // We are going to create two menus. Note that we assign them
         // unique integer IDs, labels from our string resources, and
         // given them shortcuts.
+        OnMenuItemClickListener settingListener = new OnMenuItemClickListener() {
+            
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(getApplicationContext(), PrefActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        };
         menu.add(0, BACK_ID, 0, R.string.back).setShortcut('0', 'b');
         menu.add(0, CLEAR_ID, 0, R.string.clear).setShortcut('1', 'c');
+        menu.add(0, SETTINGS_ID, 0, R.string.settings).setOnMenuItemClickListener(settingListener);
 
         return true;
     }
