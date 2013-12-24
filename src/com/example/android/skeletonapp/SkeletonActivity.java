@@ -16,6 +16,9 @@
 
 package com.example.android.skeletonapp;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import junit.framework.TestFailure;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,7 +36,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import android.text.Editable;
 import android.util.Log;
 
@@ -181,19 +183,15 @@ public class SkeletonActivity extends Activity {
                     }
                 }
             }; 
-            String[] miporin = {"み", "ぽ", "り", "ん"};
-            int length = miporin.length;
-            int max = length - 1;
-            String message = "";
-            for (int i = 0; i < length -1; i++) {
-                int index = (int) Math.random() * max;
-                message += miporin[index] + br;
-                miporin[index] = miporin[max--];
-            }
-            message += miporin[0];
+            ArrayList<String> miporin = new ArrayList<String>();
+            miporin.add("み");
+            miporin.add("ぽ");
+            miporin.add("り");
+            miporin.add("ん");
+            Collections.shuffle(miporin);
             new AlertDialog.Builder(SkeletonActivity.this)
                 .setTitle("並び替え")
-                .setMessage(message)
+                .setMessage(miporin.toString())
                 .setView(textFiled)
                 .setPositiveButton("回答", pButtonListener)
                 .setNegativeButton("戻る", null)
