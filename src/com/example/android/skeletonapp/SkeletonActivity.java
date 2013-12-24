@@ -19,7 +19,6 @@ package com.example.android.skeletonapp;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import junit.framework.TestFailure;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -176,7 +175,7 @@ public class SkeletonActivity extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     
-                    if (textFiled.getText().toString().equals(R.string.rightAnswer)) {
+                    if (textFiled.getText().toString().equals(getString(R.string.rightAnswer))) {
                         Toast.makeText(getApplicationContext(), "正解", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "不正解", Toast.LENGTH_LONG).show();
