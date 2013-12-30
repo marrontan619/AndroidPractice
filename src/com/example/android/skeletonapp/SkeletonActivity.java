@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import android.text.Editable;
@@ -67,7 +68,6 @@ public class SkeletonActivity extends Activity {
         ((Button) findViewById(R.id.next)).setOnClickListener(mNextListener);
         ((Button) findViewById(R.id.show)).setOnClickListener(mShowListener);
         ((Button) findViewById(R.id.toast)).setOnClickListener(mToastListener);
-        
     }
 
     /**

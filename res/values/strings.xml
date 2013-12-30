@@ -28,6 +28,9 @@
     <string name="sub">SubActivity</string>
     <string name="subButton">SubButton</string>
     <string name="enableButton">Enable Text View</string>
+    <string name="settingRed">R</string>
+    <string name="settingGreen">G</string>
+    <string name="settingBlue">B</string>
 
     <!-- This is a complex string containing style runs. -->
     <string name="main_label">Hello <u>th<ignore>e</ignore>re</u>, <i>you</i> <b>Activity</b>!</string>
