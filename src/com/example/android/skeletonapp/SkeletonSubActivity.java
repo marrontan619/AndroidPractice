@@ -43,15 +43,19 @@ public class SkeletonSubActivity extends Activity {
         
         ((Button) findViewById(R.id.subButton)).setOnClickListener(sbListener);
         ((Button) findViewById(R.id.enableButton)).setOnClickListener(enListener);
-        rBar = ((SeekBar) findViewById(R.id.redBar));
-        rBar.setOnSeekBarChangeListener(rBarListener);
-        gBar = ((SeekBar) findViewById(R.id.greenBar));
-        gBar.setOnSeekBarChangeListener(gBarListener);
-        bBar = ((SeekBar) findViewById(R.id.blueBar));
-        bBar.setOnSeekBarChangeListener(bBarListener);
         outerLayout = findViewById(R.id.outerLayout);
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sp.edit();
+        rBar = ((SeekBar) findViewById(R.id.redBar));
+        rBar.setOnSeekBarChangeListener(rBarListener);
+        rBar.setProgress(Integer.parseInt(sp.getString("bgRed", "00"), 16));
+        gBar = ((SeekBar) findViewById(R.id.greenBar));
+        gBar.setOnSeekBarChangeListener(gBarListener);
+        gBar.setProgress(Integer.parseInt(sp.getString("bgGreen", "00"), 16));
+        bBar = ((SeekBar) findViewById(R.id.blueBar));
+        bBar.setOnSeekBarChangeListener(bBarListener);
+        bBar.setProgress(Integer.parseInt(sp.getString("bgBlue", "00"), 16));
+        setBgColor();
     }
     
     OnClickListener sbListener = new OnClickListener() {

@@ -22,7 +22,10 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +49,8 @@ public class SkeletonActivity extends Activity {
     static final private int CLEAR_ID = Menu.FIRST + 1;
 
     private EditText mEditor;
+    private SharedPreferences sp;
+    private View outerLayout;
     
     public SkeletonActivity() {
     }
@@ -68,6 +73,7 @@ public class SkeletonActivity extends Activity {
         ((Button) findViewById(R.id.next)).setOnClickListener(mNextListener);
         ((Button) findViewById(R.id.show)).setOnClickListener(mShowListener);
         ((Button) findViewById(R.id.toast)).setOnClickListener(mToastListener);
+        sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
     /**
@@ -76,8 +82,9 @@ public class SkeletonActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        
         Log.d("SkeletonActivity", "onResume");
+        
+        setBgColor();
     }
     
     @Override
@@ -186,4 +193,11 @@ public class SkeletonActivity extends Activity {
 				.show();
 		}
 	};
+	
+	public void setBgColor() {
+        mEditor.setBackgroundColor(Color.parseColor("#" +
+                                                        sp.getString("bgRed", "FF") +
+                                                        sp.getString("bgGreen", "FF") +
+                                                        sp.getString("bgBlue", "FF")));
+    }
 }
