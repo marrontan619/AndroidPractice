@@ -14,13 +14,15 @@ import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SkeletonSubActivity extends Activity {
     
-    private View outerLayout;
+    private LinearLayout outerLayout;
     private AutoCompleteTextView textView;
     private SeekBar rBar;
     private SeekBar gBar;
@@ -43,7 +45,8 @@ public class SkeletonSubActivity extends Activity {
         
         ((Button) findViewById(R.id.subButton)).setOnClickListener(sbListener);
         ((Button) findViewById(R.id.enableButton)).setOnClickListener(enListener);
-        outerLayout = findViewById(R.id.outerLayout);
+        ((Button) findViewById(R.id.addLayoutButton)).setOnClickListener(addListener);
+        outerLayout = (LinearLayout) findViewById(R.id.outerLayout);
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sp.edit();
         rBar = ((SeekBar) findViewById(R.id.redBar));
@@ -148,6 +151,15 @@ public class SkeletonSubActivity extends Activity {
         public void onProgressChanged(SeekBar seekBar, int progress,
                 boolean fromUser) {
             
+        }
+    };
+    
+    OnClickListener addListener = new OnClickListener() {
+        
+        @Override
+        public void onClick(View v) {
+            View inflate = getLayoutInflater().inflate(R.layout.hidden_layout, null);
+            outerLayout.addView(inflate);
         }
     };
 }
