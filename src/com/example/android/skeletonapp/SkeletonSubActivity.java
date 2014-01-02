@@ -50,14 +50,14 @@ public class SkeletonSubActivity extends Activity {
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sp.edit();
         rBar = ((SeekBar) findViewById(R.id.redBar));
-        rBar.setOnSeekBarChangeListener(rBarListener);
-        rBar.setProgress(Integer.parseInt(sp.getString("bgRed", "00"), 16));
+        rBar.setOnSeekBarChangeListener(bgBarListener);
+        rBar.setProgress(Integer.parseInt(sp.getString(Integer.toString(R.id.redBar), "00"), 16));
         gBar = ((SeekBar) findViewById(R.id.greenBar));
-        gBar.setOnSeekBarChangeListener(gBarListener);
-        gBar.setProgress(Integer.parseInt(sp.getString("bgGreen", "00"), 16));
+        gBar.setOnSeekBarChangeListener(bgBarListener);
+        gBar.setProgress(Integer.parseInt(sp.getString(Integer.toString(R.id.greenBar), "00"), 16));
         bBar = ((SeekBar) findViewById(R.id.blueBar));
-        bBar.setOnSeekBarChangeListener(bBarListener);
-        bBar.setProgress(Integer.parseInt(sp.getString("bgBlue", "00"), 16));
+        bBar.setOnSeekBarChangeListener(bgBarListener);
+        bBar.setProgress(Integer.parseInt(sp.getString(Integer.toString(R.id.blueBar), "00"), 16));
         setBgColor();
     }
     
@@ -80,64 +80,19 @@ public class SkeletonSubActivity extends Activity {
     };
     
     public void setBgColor() {
-        textView.setText(sp.getString("bgRed", "00"));
         outerLayout.setBackgroundColor(Color.parseColor("#" +
-                                                        sp.getString("bgRed", "00") +
-                                                        sp.getString("bgGreen", "00") +
-                                                        sp.getString("bgBlue", "00")));
+                                                        sp.getString(Integer.toString(R.id.redBar), "00") +
+                                                        sp.getString(Integer.toString(R.id.greenBar), "00") +
+                                                        sp.getString(Integer.toString(R.id.blueBar), "00")));
     }
     
-    OnSeekBarChangeListener rBarListener = new OnSeekBarChangeListener() {
+    OnSeekBarChangeListener bgBarListener = new OnSeekBarChangeListener() {
         
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            String red = Integer.toString(rBar.getProgress(), 16);
-            red = (red.length() < 2) ? "0" + red : red;
-            editor.putString("bgRed", red);
-            editor.commit();
-            setBgColor();
-        }
-        
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-            
-        }
-        
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress,
-                boolean fromUser) {
-            
-        }
-    };
-    OnSeekBarChangeListener gBarListener = new OnSeekBarChangeListener() {
-        
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-            String green = Integer.toString(gBar.getProgress(), 16);
-            green = (green.length() < 2) ? "0" + green : green;
-            editor.putString("bgGreen", green);
-            editor.commit();
-            setBgColor();
-        }
-        
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-            
-        }
-        
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress,
-                boolean fromUser) {
-            
-        }
-    };
-    OnSeekBarChangeListener bBarListener = new OnSeekBarChangeListener() {
-        
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-            String blue = Integer.toString(bBar.getProgress(), 16);
-            blue = (blue.length() < 2) ? "0" + blue : blue;
-            editor.putString("bgBlue", blue);
+            String bgProgress = Integer.toString(seekBar.getProgress(), 16);
+            bgProgress = (bgProgress.length() < 2) ? "0" + bgProgress : bgProgress;
+            editor.putString(Integer.toString(seekBar.getId()), bgProgress);
             editor.commit();
             setBgColor();
         }

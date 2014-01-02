@@ -50,7 +50,6 @@ public class SkeletonActivity extends Activity {
 
     private EditText mEditor;
     private SharedPreferences sp;
-    private View outerLayout;
     
     public SkeletonActivity() {
     }
@@ -196,8 +195,8 @@ public class SkeletonActivity extends Activity {
 	
 	public void setBgColor() {
         mEditor.setBackgroundColor(Color.parseColor("#" +
-                                                        sp.getString("bgRed", "FF") +
-                                                        sp.getString("bgGreen", "FF") +
-                                                        sp.getString("bgBlue", "FF")));
+                                                        sp.getString(Integer.toString(R.id.redBar), "00") +
+                                                        sp.getString(Integer.toString(R.id.greenBar), "00") +
+                                                        sp.getString(Integer.toString(R.id.blueBar), "00")));
     }
 }
