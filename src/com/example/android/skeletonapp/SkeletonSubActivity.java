@@ -1,9 +1,13 @@
 package com.example.android.skeletonapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -18,6 +22,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 public class SkeletonSubActivity extends Activity {
+    
+    static final String ACTION_INTENT_PRACTICE = "com.example.android.intent.action.INTENT_PRACTICE";
     
     private LinearLayout outerLayout;
     private AutoCompleteTextView textView;
@@ -45,6 +51,7 @@ public class SkeletonSubActivity extends Activity {
         ((Button) findViewById(R.id.subButton)).setOnClickListener(sbListener);
         ((Button) findViewById(R.id.enableButton)).setOnClickListener(enListener);
         ((Button) findViewById(R.id.addLayoutButton)).setOnClickListener(addListener);
+        ((Button) findViewById(R.id.intentSelectButton)).setOnClickListener(intentPracticeListener);
         outerLayout = (LinearLayout) findViewById(R.id.outerLayout);
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sp.edit();
@@ -114,6 +121,34 @@ public class SkeletonSubActivity extends Activity {
         public void onClick(View v) {
             View inflate = getLayoutInflater().inflate(R.layout.hidden_layout, null);
             outerLayout.addView(inflate);
+        }
+    };
+    
+    OnClickListener intentPracticeListener = new OnClickListener() {
+        
+        @Override
+        public void onClick(View v) {
+            String[] items = {getString(R.string.broadcastForToast), getString(R.string.broadcastForNotification)};
+            new AlertDialog.Builder(SkeletonSubActivity.this)
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(ACTION_INTENT_PRACTICE);
+                        switch (which) {
+                        case 0:
+                            Uri toastUri = Uri.parse("toast:///practice");
+                            intent.setData(toastUri);
+                            break;
+                        case 1:
+                            Uri notificationUri = Uri.parse("notification:///practice");
+                            intent.setData(notificationUri);
+                            break;
+                        }
+                        sendBroadcast(intent);
+                    }
+                })
+                .show();
         }
     };
     
