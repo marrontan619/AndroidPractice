@@ -12,7 +12,7 @@
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
-     limitations under the License.
+     limitations under the License.
 -->
 
 
@@ -32,8 +32,8 @@
 -->
 <manifest package="com.example.android.skeletonapp" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-sdk android:targetSdkVersion="8"
-              android:minSdkVersion="5" />
+    <uses-sdk android:targetSdkVersion="16"
+              android:minSdkVersion="16" />
     <!--
          This package contains an application...  The 'label' is the name
          to display to the user for the overall application, and provides
@@ -84,7 +84,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.example.android.skeletonapp.NotificationIntentReceiver" android:enabled="false">
+            android:name="com.example.android.skeletonapp.NotificationIntentReceiver">
             <intent-filter>
                 <action android:name="com.example.android.intent.action.INTENT_PRACTICE" />
 
