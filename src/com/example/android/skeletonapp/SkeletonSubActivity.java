@@ -1,26 +1,29 @@
 package com.example.android.skeletonapp;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.ContentValues;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.Layout;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class SkeletonSubActivity extends Activity {
+    
+    static final String ACTION_INTENT_PRACTICE = "com.example.android.intent.action.INTENT_PRACTICE";
     
     private LinearLayout outerLayout;
     private AutoCompleteTextView textView;
@@ -29,6 +32,8 @@ public class SkeletonSubActivity extends Activity {
     private SeekBar bBar;
     private SharedPreferences sp;
     private Editor editor;
+    
+    private String br = System.getProperty("line.separator");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,7 @@ public class SkeletonSubActivity extends Activity {
         ((Button) findViewById(R.id.subButton)).setOnClickListener(sbListener);
         ((Button) findViewById(R.id.enableButton)).setOnClickListener(enListener);
         ((Button) findViewById(R.id.addLayoutButton)).setOnClickListener(addListener);
+        ((Button) findViewById(R.id.intentSelectButton)).setOnClickListener(intentPracticeListener);
         outerLayout = (LinearLayout) findViewById(R.id.outerLayout);
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sp.edit();
@@ -117,4 +123,72 @@ public class SkeletonSubActivity extends Activity {
             outerLayout.addView(inflate);
         }
     };
+    
+    OnClickListener intentPracticeListener = new OnClickListener() {
+        
+        @Override
+        public void onClick(View v) {
+            String[] items = {getString(R.string.broadcastForToast), getString(R.string.broadcastForNotification)};
+            new AlertDialog.Builder(SkeletonSubActivity.this)
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(ACTION_INTENT_PRACTICE);
+                        switch (which) {
+                        case 0:
+                            Uri toastUri = Uri.parse("toast:///practice");
+                            intent.setData(toastUri);
+                            break;
+                        case 1:
+                            Uri notificationUri = Uri.parse("notification:///practice");
+                            intent.setData(notificationUri);
+                            break;
+                        }
+                        sendBroadcast(intent);
+                    }
+                })
+                .show();
+        }
+    };
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(getApplicationContext(), getIntent().toString(), Toast.LENGTH_LONG).show();
+    };
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.skelton_sub_menu, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.removeItem(R.id.menuItem2);
+        menu.findItem(R.id.menuItem4).setEnabled(false);
+        menu.findItem(R.id.subMenu1).setCheckable(true);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        String text = item.getTitle() + br + String.valueOf(item.hasSubMenu());
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.menuItem7 || item.getItemId() == R.id.subMenu2) {
+            finish();
+        } else if (item.getItemId() == R.id.subMenu1) {
+            if (item.isChecked()) {
+                item.setChecked(false);
+            } else {
+                item.setChecked(true);
+            }
+        }
+        return false;
+        
+    }
 }

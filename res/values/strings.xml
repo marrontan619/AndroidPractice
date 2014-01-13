@@ -33,6 +33,8 @@
     <string name="settingBlue">B</string>
 
     <!-- This is a complex string containing style runs. -->
-    <string name="main_label">Hello <u>th<ignore>e</ignore>re</u>, <i>you</i> <b>Activity</b>!</string> <string name="addLayoutButton">Add Layout</string>
+    <string name="main_label">Hello <u>th<ignore>e</ignore>re</u>, <i>you</i> <b>Activity</b>!</string> <string name="addLayoutButton">Add Layout</string> <string name="menuItem1">Item1</string> <string name="selectIntent">Select Intent</string>
+    <string name="broadcastForToast">Toast</string>
+    <string name="broadcastForNotification">Notification</string>
 </resources>
 
